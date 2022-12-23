@@ -59,13 +59,13 @@ public class EmployeeController {
     @RequestMapping
     public R<String> save(HttpServletRequest httpServletRequest,@RequestBody Employee employee){
         log.info("当前获取到的对象为：{}",employee);
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-        Long nowloginuserid = (Long)httpServletRequest.getSession().getAttribute("Employee");
-
-        employee.setCreateUser(nowloginuserid);
-        employee.setUpdateUser(nowloginuserid);
+//        Long nowloginuserid = (Long)httpServletRequest.getSession().getAttribute("Employee");
+//
+//        employee.setCreateUser(nowloginuserid);
+//        employee.setUpdateUser(nowloginuserid);
 
         employeeService.save(employee);
         return R.success("新增员工成功！");
@@ -86,9 +86,9 @@ public class EmployeeController {
     }
     @PutMapping
     public R<String> update(HttpServletRequest servletRequest,@RequestBody Employee employee){
-        Long empid = (Long) servletRequest.getSession().getAttribute("Employee");
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(empid);
+//        Long empid = (Long) servletRequest.getSession().getAttribute("Employee");
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(empid);
         employeeService.updateById(employee);
         return R.success("更新用户信息成功");
     }

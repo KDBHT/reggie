@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/category")
@@ -44,5 +45,16 @@ public class CategoryController {
     public R<String> update(@RequestBody Category category){
         categoryService.updateById(category);
         return R.success("更新分类信息成功");
+    }
+    @GetMapping("/list")
+    public R<List<Category>> list(Category category){
+        //条件构造器
+        LambdaQueryWrapper<Category> categoryLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        //添加条件,如果获取到对象的type不为空时才进行查询
+        categoryLambdaQueryWrapper.eq(category.getType()!=null,Category::getType,category.getType());
+        //添加排序条件
+        categoryLambdaQueryWrapper.orderByAsc(Category::getType).orderByDesc(Category::getUpdateTime);
+        List<Category> categoryList = categoryService.list(categoryLambdaQueryWrapper);
+        return R.success(categoryList);
     }
 }

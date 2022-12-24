@@ -79,4 +79,13 @@ public class DishController {
         dishService.updateWithFlavor(dishDto);
         return R.success("新增菜品成功");
     }
+    @GetMapping("/list")
+    public R<List<Dish>> list(Dish dish){
+        LambdaQueryWrapper<Dish> dishLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        dishLambdaQueryWrapper.eq(dish.getCategoryId()!=null,Dish::getCategoryId,dish.getCategoryId());
+        dishLambdaQueryWrapper.eq(Dish::getStatus,1);
+        dishLambdaQueryWrapper.orderByAsc(Dish::getSort).orderByDesc(Dish::getUpdateTime);
+        List<Dish> dishList = dishService.list(dishLambdaQueryWrapper);
+        return R.success(dishList);
+    }
 }

@@ -34,7 +34,9 @@ public class LoginCheckFilter implements Filter {
                 "/employee/logout",
                 "/backend/**",
                 "/front/**",
-                "/common/**"
+                "/common/**",
+                "/user/sendMsg",//移动端发送短信
+                "/user/login"//移动端登录请求
 //                "/employee/page"
         };
         //2.判断本次请求是否需要处理
@@ -45,12 +47,21 @@ public class LoginCheckFilter implements Filter {
             filterChain.doFilter(request,response);
             return;
         }
-        //4.判断登录状态，如果已经登陆，则直接放行
+        //4-1判断登录状态，如果已经登陆，则直接放行
         if (request.getSession().getAttribute("Employee") != null){
             log.info("用户已登录，用户id为{}",request.getSession().getAttribute("Employee"));
             //向threadLocal中添加当前登录用户的id，方便后续mybatisplus公共字段填充用户id等信息
             Long userid = (Long) request.getSession().getAttribute("Employee");
             BaseContext.setCurrentId(userid);
+            filterChain.doFilter(request,response);
+            return;
+        }
+        //4-2判断手机端用户登录状态，如果已经登陆，则直接放行
+        if (request.getSession().getAttribute("user") != null){
+            log.info("用户已登录，用户id为{}",request.getSession().getAttribute("user"));
+            //向threadLocal中添加当前登录用户的id，方便后续mybatisplus公共字段填充用户id等信息
+            Long phoneuserid = (Long) request.getSession().getAttribute("user");
+            BaseContext.setCurrentId(phoneuserid);
             filterChain.doFilter(request,response);
             return;
         }

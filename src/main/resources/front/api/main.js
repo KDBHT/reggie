@@ -9,7 +9,7 @@ function categoryListApi() {
 //获取菜品分类对应的菜品
 function dishListApi(data) {
     return $axios({
-        'url': '/dish/list',
+        'url': '/dish/phonelist',
         'method': 'get',
         params:{...data}
     })
@@ -28,6 +28,7 @@ function setmealListApi(data) {
 function cartListApi(data) {
     return $axios({
         'url': '/shoppingCart/list',
+        // 'url': '/front/cartData.json',
         'method': 'get',
         params:{...data}
     })

@@ -47,7 +47,7 @@
             data(){
                 return {
                     form:{
-                        phone:'',
+                        phone:'13412345678',
                         code:''
                     },
                     msgFlag:false,
@@ -58,12 +58,23 @@
             created(){},
             mounted(){},
             methods:{
-                getCode(){
+                async getCode(){
                     this.form.code = ''
                     const regex = /^(13[0-9]{9})|(15[0-9]{9})|(17[0-9]{9})|(18[0-9]{9})|(19[0-9]{9})$/;
                     if (regex.test(this.form.phone)) {
                         this.msgFlag = false
-                        this.form.code = (Math.random()*1000000).toFixed(0)
+                        // this.form.code = (Math.random()*1000000).toFixed(0)
+                        const res1 = await $axios({
+                            'url': '/user/sendMsg',
+                            'method': 'post',
+                            async: false,
+                            data:{phone: this.form.phone}
+                        })
+                        if (res1.code === 1){
+                            this.form.code = res1.msg;
+                            this.$notify({ type:'success', message:res1.data});
+                        }
+
                     }else{
                         this.msgFlag = true
                     }
@@ -71,7 +82,7 @@
                 async btnLogin(){
                     if(this.form.phone && this.form.code){
                         this.loading = true
-                        const res = await loginApi({phone:this.form.phone})
+                        const res = await loginApi({phone:this.form.phone,code:this.form.code})
                         this.loading = false
                         if(res.code === 1){
                             sessionStorage.setItem("userPhone",this.form.phone)

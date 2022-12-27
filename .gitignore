@@ -1,5 +1,5 @@
 # 屏蔽文件
-/target/**
+/target/
 *.class
 # Default ignored files
 /shelf/

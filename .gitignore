@@ -1,5 +1,6 @@
 # 屏蔽文件
 /target/
+/.idea/
 *.class
 # Default ignored files
 /shelf/

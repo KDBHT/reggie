@@ -1,0 +1,11 @@
+# 屏蔽文件
+/target/**
+*.class
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/../../../../:\workspace20221106\reggie\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

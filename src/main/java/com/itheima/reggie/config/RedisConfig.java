@@ -17,12 +17,12 @@ public class RedisConfig {
         RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
         //key序列化
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        //value序列化
-        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
-        //hashkey序列化
-        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-        //hashvalue序列化
-        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+//        //value序列化
+//        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+//        //hashkey序列化
+//        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+//        //hashvalue序列化
+//        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
 
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         return redisTemplate;
